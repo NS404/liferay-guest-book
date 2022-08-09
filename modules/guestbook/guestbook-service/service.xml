@@ -1,50 +1,64 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
 
-<service-builder dependency-injector="ds" package-path="com.liferay.docs.guestbook">
-	<namespace>FOO</namespace>
-	<!--<entity data-source="sampleDataSource" local-service="true" name="Foo" remote-service="false" session-factory="sampleSessionFactory" table="foo" tx-manager="sampleTransactionManager uuid="true"">-->
-	<entity local-service="true" name="Foo" remote-service="true" uuid="true">
 
-		<!-- PK fields -->
+<!--Service Builder is Liferay’s code generation tool for defining object models and mapping
+  those models to SQL databases. By defining your model in a single XML file,
+  you can generate your object model (the M in MVC),
+  your service layer, and your persistence layer all in one shot.
+  At the same time, you can support every database Liferay DXP supports. -->
 
-		<column name="fooId" primary="true" type="long" />
+<service-builder dependency-injector="ds" package-path="com.liferay.docs.guestbook" mvcc-enabled="true">
+	<author>liferay</author>
+	<namespace>GB</namespace> <!-- Keeps the database names from conflicting -->
+	<entity name="Guestbook" local-service="true" uuid="true" remote-service="true">
+
+		<!-- Guestbook fields -->
+
+		<column name="guestbookId" primary="true" type="long" />
+		<column name="name" type="String" />
+
 
 		<!-- Group instance -->
 
-		<column name="groupId" type="long" />
+		<column name="groupId" type="long" /> 	<!-- ID of the site where the entity exists -->
+		<column name="companyId" type="long" /> <!-- ID of the portal instance -->
 
-		<!-- Audit fields -->
 
-		<column name="companyId" type="long" />
+		<!-- Audit fields (track owners of entity instances, along with those instances’ create and modify dates) -->
+
 		<column name="userId" type="long" />
 		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
-		<!-- Other fields -->
 
-		<column name="field1" type="String" />
-		<column name="field2" type="boolean" />
-		<column name="field3" type="int" />
-		<column name="field4" type="Date" />
-		<column name="field5" type="String" />
+		<!-- Status fields (track your entity’s status as it passes through the workflow) -->
 
-		<!-- Order -->
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
 
-		<order by="asc">
-			<order-column name="field1" />
-		</order>
 
-		<!-- Finder methods -->
-
-		<finder name="Field2" return-type="Collection">
-			<finder-column name="field2" />
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
 		</finder>
+		<!--A finder generates a get method for retrieving Guestbook entities.
+			The fields used by the finder define the scope of the data retrieved.
+			This finder gets all Guestbooks by their groupId.  -->
 
-		<!-- References -->
 
-		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
-		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
 	</entity>
+
+	<!-- These generate custom exception classes -->
+	<exceptions>
+		<exception>GuestbookEntryEmail</exception>
+		<exception>GuestbookEntryMessage</exception>
+		<exception>GuestbookEntryName</exception>
+		<exception>GuestbookName</exception>
+	</exceptions>
+
+
+
 </service-builder>
