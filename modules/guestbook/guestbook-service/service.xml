@@ -51,6 +51,55 @@
 
 	</entity>
 
+	<entity name="GuestbookEntry" local-service="true" remote-service="true" uuid="true">
+
+		<!-- Guestbook Entry fields -->
+
+		<column name="entryId" primary="true" type="long" />
+		<column name="name" type="String" />
+		<column name="email" type="String" />
+		<column name="message" type="String" />
+		<column name="guestbookId" type="long" />
+
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+		<column name="companyId" type="long" />
+
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+
+		<!-- Status fields -->
+
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
+
+
+		<order>
+			<order-column name="createDate" order-by="desc" />
+		</order>
+
+
+		<finder name="G_G" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="guestbookId" />
+		</finder>
+
+	</entity>
+
+
+
+
+
 	<!-- These generate custom exception classes -->
 	<exceptions>
 		<exception>GuestbookEntryEmail</exception>
