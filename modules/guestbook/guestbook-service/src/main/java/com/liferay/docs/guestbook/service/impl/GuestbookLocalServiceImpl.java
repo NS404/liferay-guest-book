@@ -28,8 +28,6 @@ import org.osgi.service.component.annotations.Component;
 import java.util.Date;
 import java.util.List;
 
-import static com.liferay.portal.kernel.format.PhoneNumberFormatUtil.validate;
-
 /**
  * @author liferay
  */
