@@ -8,6 +8,8 @@ import com.liferay.portal.kernel.model.Portlet;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
+import java.util.Locale;
+
 @Component(
         immediate = true,
         property = {
