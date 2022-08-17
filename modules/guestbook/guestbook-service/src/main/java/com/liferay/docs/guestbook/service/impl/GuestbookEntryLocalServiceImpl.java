@@ -23,6 +23,7 @@ import com.liferay.portal.aop.AopService;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -74,6 +75,9 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 
 		// Calls to other Liferay frameworks go here
 
+		resourceLocalService.addResources(user.getCompanyId(), groupId, userId,
+				GuestbookEntry.class.getName(), entryId, false, true, true);
+
 		return entry;
 	}
 
@@ -103,12 +107,21 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 
 		// Integrate with Liferay frameworks here.
 
+		resourceLocalService.updateResources(
+				user.getCompanyId(), serviceContext.getScopeGroupId(),
+				GuestbookEntry.class.getName(), entryId,
+				serviceContext.getModelPermissions());
+
 		return entry;
 	}
 
-	public GuestbookEntry deleteGuestbookEntry(GuestbookEntry entry) {
+	public GuestbookEntry deleteGuestbookEntry(GuestbookEntry entry) throws PortalException {
 
 		guestbookEntryPersistence.remove(entry);
+
+		resourceLocalService.deleteResource(
+				entry.getCompanyId(), GuestbookEntry.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
 
 		return entry;
 	}
@@ -119,6 +132,10 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 
 		return deleteGuestbookEntry(entry);
 	}
+
+
+
+
 
 	public List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId) {
 		return guestbookEntryPersistence.findByG_G(groupId, guestbookId);
