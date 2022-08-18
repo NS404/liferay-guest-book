@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookPermission" %>
 <%@include file="../init.jsp"%>
 
 <liferay-ui:success key="entryAdded" message="entry-added" />
@@ -14,12 +15,14 @@
 
 		for (int i = 0; i < guestbooks.size(); i++) {
 
-			Guestbook curGuestbook = (Guestbook) guestbooks.get(i);
+			Guestbook curGuestbook = guestbooks.get(i);
 			String cssClass = StringPool.BLANK;
 
 			if (curGuestbook.getGuestbookId() == guestbookId) {
 				cssClass = "active";
 			}
+
+			if (GuestbookModelPermission.contains(permissionChecker, curGuestbook.getGuestbookId(), "VIEW")) {
 
 	%>
 
@@ -32,20 +35,24 @@
 	<aui:nav-item cssClass="<%=cssClass%>" href="<%=viewPageURL%>" label="<%=HtmlUtil.escape(curGuestbook.getName())%>" />
 
 	<%
-		}
+			}
 
+		}
 	%>
 
 </aui:nav>
 
 <aui:button-row cssClass="guestbook-buttons">
+	<c:if test='<%= GuestbookPermission.contains(permissionChecker, scopeGroupId, "ADD_ENTRY") %>'>
 
-	<portlet:renderURL var="addEntryURL">
-		<portlet:param name="mvcPath" value="/guestbook/edit_entry.jsp" />
-		<portlet:param name="guestbookId" value="<%=String.valueOf(guestbookId)%>" />
-	</portlet:renderURL>
+		<portlet:renderURL var="addEntryURL">
+			<portlet:param name="mvcPath" value="/guestbook/edit_entry.jsp" />
+			<portlet:param name="guestbookId" value="<%=String.valueOf(guestbookId)%>" />
+		</portlet:renderURL>
 
-	<aui:button onClick="<%=addEntryURL%>" value="Add Entry"></aui:button>
+		<aui:button onClick="<%=addEntryURL%>" value="Add Entry"></aui:button>
+
+	</c:if>
 
 </aui:button-row>
 

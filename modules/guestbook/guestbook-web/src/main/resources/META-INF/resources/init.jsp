@@ -19,6 +19,9 @@
 <%@ page import="com.liferay.docs.guestbook.service.GuestbookEntryLocalServiceUtil" %>
 <%@ page import="com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil" %>
 <%@ page import="com.liferay.docs.guestbook.model.GuestbookEntry" %>
+<%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookModelPermission" %>
+<%@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %>
+<%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookEntryPermission" %>
 
 <liferay-theme:defineObjects />
 
