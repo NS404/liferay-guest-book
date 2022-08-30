@@ -22,6 +22,19 @@
 <%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookModelPermission" %>
 <%@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %>
 <%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookEntryPermission" %>
+<%@ page import="com.liferay.portal.kernel.search.SearchContextFactory" %>
+<%@ page import="com.liferay.portal.kernel.search.SearchContext" %>
+<%@ page import="com.liferay.portal.kernel.search.Indexer" %>
+<%@ page import="com.liferay.portal.kernel.search.IndexerRegistryUtil" %>
+<%@ page import="com.liferay.portal.kernel.search.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.liferay.portal.kernel.util.GetterUtil" %>
+<%@ page import="com.liferay.portal.kernel.exception.PortalException" %>
+<%@ page import="com.liferay.portal.kernel.exception.SystemException" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="com.liferay.portal.kernel.log.Log" %>
+<%@ page import="com.liferay.portal.kernel.log.LogFactoryUtil" %>
 
 <liferay-theme:defineObjects />
 
