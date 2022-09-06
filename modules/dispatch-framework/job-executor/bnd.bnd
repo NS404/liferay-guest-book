@@ -1,0 +1,3 @@
+Bundle-Name: job-executor
+Bundle-SymbolicName: com.liferay.docs.dispatch.job.scheduler.task.executor
+Bundle-Version: 1.0.0

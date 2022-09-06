@@ -1,0 +1,3 @@
+Bundle-Name: message-sender
+Bundle-SymbolicName: com.liferay.docs.message.sender
+Bundle-Version: 1.0.0
