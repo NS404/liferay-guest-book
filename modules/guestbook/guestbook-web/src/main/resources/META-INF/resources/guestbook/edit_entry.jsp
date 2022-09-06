@@ -18,6 +18,8 @@
 
 %>
 
+<liferay-ui:header backURL="<%= viewURL %>" title="<%= entry == null ? "Add Entry" : entry.getName() %>"/>
+
 <aui:form action="<%= addEntryURL %>" name="<portlet:namespace />fm">
 
     <aui:model-context bean="<%= entry %>" model="<%= GuestbookEntry.class %>" />
@@ -32,10 +34,26 @@
 
     </aui:fieldset>
 
-    <aui:button-row>
+    <liferay-asset:asset-categories-error /> <liferay-asset:asset-tags-error />
 
+    <liferay-ui:panel defaultState="closed" extended="<%= false %>" id="entryCategorizationPanel" persistState="<%= true %>" title="categorization">
+        <aui:fieldset>
+            <liferay-asset:asset-categories-selector className="<%= GuestbookEntry.class.getName() %>" classPK="<%= entryId %>" />
+            <liferay-asset:asset-tags-selector className="<%= GuestbookEntry.class.getName() %>" classPK="<%= entryId %>" />
+        </aui:fieldset>
+    </liferay-ui:panel>
+
+<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="entryAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+
+    <aui:fieldset collapsed="<%= true %>" collapsible="<%= true %>" label="related-assets">
+        <liferay-asset:input-asset-links className="<%= GuestbookEntry.class.getName() %>" classPK="<%= entryId %>"/>
+    </aui:fieldset>
+
+</liferay-ui:panel>
+
+    <aui:button-row>
         <aui:button type="submit"></aui:button>
         <aui:button type="cancel" onClick="<%= viewURL %>"></aui:button>
-
     </aui:button-row>
+
 </aui:form>

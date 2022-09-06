@@ -36,6 +36,20 @@
 <%@ page import="com.liferay.portal.kernel.log.Log" %>
 <%@ page import="com.liferay.portal.kernel.log.LogFactoryUtil" %>
 
+<%@ taglib uri="http://liferay.com/tld/asset" prefix="liferay-asset" %>
+<%@ taglib uri="http://liferay.com/tld/comment" prefix="liferay-comment" %>
+
+<%@ page import="com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil" %>
+<%@ page import="com.liferay.asset.kernel.service.AssetTagLocalServiceUtil" %>
+<%@ page import="com.liferay.asset.kernel.model.AssetEntry" %>
+<%@ page import="com.liferay.asset.kernel.model.AssetTag" %>
+<%@ page import="com.liferay.portal.kernel.util.ListUtil" %>
+<%@ page import="com.liferay.portal.kernel.comment.Discussion" %>
+<%@ page import="com.liferay.portal.kernel.comment.CommentManagerUtil" %>
+<%@ page import="com.liferay.portal.kernel.service.ServiceContextFunction" %>
+<%@ page import="com.liferay.portal.kernel.util.*" %>
+<%@ taglib prefix="liferay-ratings" uri="http://liferay.com/tld/ratings" %>
+
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />

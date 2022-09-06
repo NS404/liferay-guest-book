@@ -25,7 +25,7 @@
 <aui:button-row cssClass="guestbook-admin-buttons">
     <portlet:renderURL var="addGuestbookURL">
         <portlet:param name="mvcPath" value="/guestbook_admin/edit_guestbook.jsp" />
-        <portlet:param name="redirect" value="<%= "currentURL" %>" />
+        <portlet:param name="redirect" value='<%= "currentURL" %>' />
     </portlet:renderURL>
 
     <aui:button onClick="<%= addGuestbookURL %>" value="Add Guestbook" />

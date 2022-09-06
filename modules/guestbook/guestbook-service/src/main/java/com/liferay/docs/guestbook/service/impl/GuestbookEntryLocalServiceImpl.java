@@ -14,6 +14,8 @@
 
 package com.liferay.docs.guestbook.service.impl;
 
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetLinkConstants;
 import com.liferay.docs.guestbook.exception.GuestbookEntryEmailException;
 import com.liferay.docs.guestbook.exception.GuestbookEntryMessageException;
 import com.liferay.docs.guestbook.exception.GuestbookEntryNameException;
@@ -28,6 +30,7 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import org.osgi.service.component.annotations.Component;
@@ -81,6 +84,18 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId,
 				GuestbookEntry.class.getName(), entryId, false, true, true);
 
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId,
+				groupId, entry.getCreateDate(), entry.getModifiedDate(),
+				GuestbookEntry.class.getName(), entryId, entry.getUuid(), 0,
+				serviceContext.getAssetCategoryIds(),
+				serviceContext.getAssetTagNames(), true, true, null, null, null, null,
+				ContentTypes.TEXT_HTML, entry.getMessage(), null, null, null,
+				null, 0, 0, null);
+
+		assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
+				serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
+
 		return entry;
 	}
 
@@ -115,6 +130,21 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 				GuestbookEntry.class.getName(), entryId,
 				serviceContext.getModelPermissions());
 
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId,
+				serviceContext.getScopeGroupId(),
+				entry.getCreateDate(), entry.getModifiedDate(),
+				GuestbookEntry.class.getName(), entryId, entry.getUuid(),
+				0, serviceContext.getAssetCategoryIds(),
+				serviceContext.getAssetTagNames(), true, true,
+				entry.getCreateDate(), null, null, null,
+				ContentTypes.TEXT_HTML, entry.getMessage(), null,
+				null, null, null, 0, 0,
+				serviceContext.getAssetPriority());
+
+		assetLinkLocalService.updateLinks(userId, assetEntry.getEntryId(),
+				serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
+
 		return entry;
 	}
 	@Indexable(type = IndexableType.DELETE)
@@ -125,6 +155,13 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		resourceLocalService.deleteResource(
 				entry.getCompanyId(), GuestbookEntry.class.getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
+
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(
+				GuestbookEntry.class.getName(), entry.getEntryId());
+
+		assetLinkLocalService.deleteLinks(assetEntry.getEntryId());
+
+		assetEntryLocalService.deleteEntry(assetEntry);
 
 		return entry;
 	}

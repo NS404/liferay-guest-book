@@ -41,14 +41,22 @@
 		<column name="statusDate" type="Date" />
 
 
+		<!-- a finder generates a get method for retrieving Guestbook entities.  -->
+
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>
-		<!--A finder generates a get method for retrieving Guestbook entities.
-			The fields used by the finder define the scope of the data retrieved.
-			This finder gets all Guestbooks by their groupId.  -->
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="status" />
+		</finder>
 
 
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
 	</entity>
 
 	<entity name="GuestbookEntry" local-service="true" remote-service="true" uuid="true">
@@ -93,7 +101,16 @@
 			<finder-column name="groupId" />
 			<finder-column name="guestbookId" />
 		</finder>
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="status" />
+		</finder>
 
+		<reference package-path="com.liferay.portlet.asset" entity="AssetEntry" />
+		<reference package-path="com.liferay.portlet.asset" entity="AssetLink" />
 	</entity>
 
 
