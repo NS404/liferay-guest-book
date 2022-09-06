@@ -49,6 +49,7 @@
 <%@ page import="com.liferay.portal.kernel.service.ServiceContextFunction" %>
 <%@ page import="com.liferay.portal.kernel.util.*" %>
 <%@ taglib prefix="liferay-ratings" uri="http://liferay.com/tld/ratings" %>
+<%@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants"%>
 
 <liferay-theme:defineObjects />
 

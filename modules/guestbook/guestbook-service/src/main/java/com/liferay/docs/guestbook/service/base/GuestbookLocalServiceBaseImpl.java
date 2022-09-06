@@ -652,6 +652,10 @@ public abstract class GuestbookLocalServiceBaseImpl
 		userLocalService;
 
 	@Reference
+	protected com.liferay.portal.kernel.service.WorkflowInstanceLinkLocalService
+		workflowInstanceLinkLocalService;
+
+	@Reference
 	protected com.liferay.asset.kernel.service.AssetEntryLocalService
 		assetEntryLocalService;
 

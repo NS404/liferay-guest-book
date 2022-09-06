@@ -26,7 +26,7 @@
 <aui:nav cssClass="nav-tabs">
 
 	<%
-		List<Guestbook> guestbooks = GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);
+		List<Guestbook> guestbooks = GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, WorkflowConstants.STATUS_APPROVED);
 
 		for (int i = 0; i < guestbooks.size(); i++) {
 
@@ -71,11 +71,10 @@
 
 </aui:button-row>
 
-<liferay-ui:search-container total="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount()%>">
+<liferay-ui:search-container total="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount(scopeGroupId, guestbookId, WorkflowConstants.STATUS_APPROVED)%>">
 	<liferay-ui:search-container-results
 			results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(
-					scopeGroupId,guestbookId, searchContainer.getStart(),searchContainer.getEnd())%>" />
-
+					scopeGroupId,guestbookId, WorkflowConstants.STATUS_APPROVED, searchContainer.getStart(),searchContainer.getEnd())%>" />
 	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.GuestbookEntry" modelVar="entry">
 
 		<liferay-ui:search-container-column-text property="message" />
